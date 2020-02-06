@@ -8,11 +8,11 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 
 	// initialise game objects
 	//Player Object
-	texture.loadFromFile("gfx/Mushroom.png");
+	texture.loadFromFile("gfx/Ninja.png");
 
 	player.setTexture(&texture);
 	player.setSize(sf::Vector2f(100, 100));
-	player.setPosition(100, 100);
+	player.setPosition(100, 510);
 	player.setInput(input);
 
 	// Enemy Object
@@ -22,17 +22,26 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	Enemy.setPosition(800, 200);
 	Enemy.setWindow(window);
 
+	// 2nd Enemy Object
 	texture3.loadFromFile("gfx/Beach_Ball.png");
 	Enemy2.setTexture(&texture3);
 	Enemy2.setSize(sf::Vector2f(100, 100));
 	Enemy2.setPosition(400, 300);
 	Enemy2.setWindow(window);
 
+	// Cursor
 	CursorPNG.loadFromFile("gfx/icon.png");
 	cursor.setTexture(&CursorPNG);
 	cursor.setSize(sf::Vector2f(100, 100));
 	cursor.setInput(input);
 	cursor.setWindow(window);
+
+	//Background
+	background.loadFromFile("gfx/Level1_1.png");
+	Background.setTexture(&background);
+	Background.setWindow(window);
+	Background.setInput(input);
+
 }
 
 Level::~Level()
@@ -49,7 +58,8 @@ void Level::handleInput(float dt)
 		window->close();
 	}
 	
-	player.handleInput(dt);
+	//player.handleInput(dt);
+	Background.handleInput(dt);
 }
 
 
@@ -57,9 +67,11 @@ void Level::handleInput(float dt)
 void Level::update(float dt)
 {
 	player.move(player.getSpeedX() * dt, player.getSpeedY() * dt);
+	Background.move(Background.getSpeedX() * dt, 0);
 	Enemy.moveEnemy(dt);
 	Enemy2.moveEnemy(dt);
 	cursor.Replace();
+
 }
 
 // Render level
@@ -67,10 +79,11 @@ void Level::render()
 {
 	beginDraw();
 
-	window->draw(player);
-	window->draw(Enemy);
-	window->draw(Enemy2);
-	window->draw(cursor);
+	window->draw(Background);
+	//window->draw(player);
+	//window->draw(Enemy);
+	//window->draw(Enemy2);
+	//window->draw(cursor); 
 	endDraw();
 }
 
@@ -78,6 +91,7 @@ void Level::render()
 void Level::beginDraw()
 {
 	window->clear(sf::Color(100, 149, 237));
+	
 }
 
 // Ends rendering to the back buffer, and swaps buffer to the screen.

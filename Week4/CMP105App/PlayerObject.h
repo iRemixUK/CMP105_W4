@@ -14,6 +14,5 @@ public:
 private:
 	float speedx;
 	float speedy;
-	
 };
 
