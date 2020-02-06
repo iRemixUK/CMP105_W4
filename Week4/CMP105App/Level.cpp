@@ -4,6 +4,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
+	window->setMouseCursorVisible(false);
 
 	// initialise game objects
 	//Player Object
@@ -26,6 +27,12 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	Enemy2.setSize(sf::Vector2f(100, 100));
 	Enemy2.setPosition(400, 300);
 	Enemy2.setWindow(window);
+
+	CursorPNG.loadFromFile("gfx/icon.png");
+	cursor.setTexture(&CursorPNG);
+	cursor.setSize(sf::Vector2f(100, 100));
+	cursor.setInput(input);
+	cursor.setWindow(window);
 }
 
 Level::~Level()
@@ -52,6 +59,7 @@ void Level::update(float dt)
 	player.move(player.getSpeedX() * dt, player.getSpeedY() * dt);
 	Enemy.moveEnemy(dt);
 	Enemy2.moveEnemy(dt);
+	cursor.Replace();
 }
 
 // Render level
@@ -62,6 +70,7 @@ void Level::render()
 	window->draw(player);
 	window->draw(Enemy);
 	window->draw(Enemy2);
+	window->draw(cursor);
 	endDraw();
 }
 

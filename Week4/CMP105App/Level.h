@@ -7,6 +7,7 @@
 #include <iostream>
 #include "PlayerObject.h"
 #include "EnemyObject.h"
+#include "Cursor.h"
 
 
 class Level{
@@ -23,6 +24,7 @@ private:
 	void beginDraw();
 	void endDraw();
 
+
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
@@ -32,7 +34,9 @@ private:
 	PlayerObject player;
 	EnemyObject Enemy;
 	EnemyObject Enemy2;
+	Cursor cursor;
 	sf::Texture texture;
 	sf::Texture texture2;
 	sf::Texture texture3;
+	sf::Texture CursorPNG;
 };
